@@ -1,0 +1,23 @@
+{
+  "name": "gulp-uglifyjs",
+  "description": "Minify multiple files with UglifyJS.",
+  "version": "0.1.0",
+  "author": "Craig Jennings <craig.jennings@gmail.com>",
+  "dependencies": {
+    "gulp-util": "^2.2.14",
+    "path": "^0.4.9",
+    "through": "^2.3.4",
+    "uglify-js": "^2.4.13"
+  },
+  "keywords": [
+    "gulp",
+    "gulp-uglify",
+    "gulpplugin",
+    "uglify",
+    "uglify-js",
+    "uglifyjs"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": "https://github.com/craigjennings11/gulp-uglifyjs.git"
+}
