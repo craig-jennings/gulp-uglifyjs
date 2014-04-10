@@ -8,10 +8,12 @@ between these two plugins is that passing in an array of files (or glob pattern
 that matches multiple files) will pass that array directly to Uglify. Uglify
 will handle both concatenating and minifying those files.
 
-The reason for using this over using `concat()` first and then `uglify()` is
-that the resulting source map will not separate the files, but instead will only
-be a map of the one concatenated file, which has the possibility of being quite
-large.
+Letting Uglify handle the concatenation and minification allows for the
+generated source map to be able to separate the files in the browser for easier
+debugging, and it avoids the intermediate step of `concat()`. Using `concat()`
+and then `uglify()` would result in a source map for the already concatenated
+file which has the possibility of being quite large, making it hard to find the
+code you are wanting to debug.
 
 ## Usage
 
