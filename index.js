@@ -83,6 +83,8 @@ module.exports = function(filename, options) {
 
       this.push(sourceMap);
     }
+
+    this.emit('end');
   }
 
   return through(bufferFiles, minify);
