@@ -9,6 +9,10 @@
     "through": "^2.3.4",
     "uglify-js": "^2.4.13"
   },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.18.2"
+  },
   "keywords": [
     "gulp",
     "gulp-uglify",
