@@ -23,5 +23,8 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "repository": "https://github.com/craigjennings11/gulp-uglifyjs.git"
+  "repository": "https://github.com/craigjennings11/gulp-uglifyjs.git",
+  "scripts": {
+    "test": "mocha"
+  }
 }
