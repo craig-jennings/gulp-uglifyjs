@@ -1,4 +1,4 @@
-# gulp-uglifyjs
+# gulp-uglifyjs [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 > Minify multiple JavaScript with UglifyJS2.
 
@@ -96,3 +96,11 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest('dist/js'))
 });
 ```
+
+[npm-image]: http://img.shields.io/npm/v/gulp-uglifyjs.svg
+[npm-url]: https://www.npmjs.org/package/gulp-uglifyjs/
+
+[downloads-image]: http://img.shields.io/npm/dm/gulp-uglifyjs.svg
+
+[travis-url]: https://travis-ci.org/craigjennings11/gulp-uglifyjs
+[travis-image]: https://travis-ci.org/craigjennings11/gulp-uglifyjs.svg?branch=master
