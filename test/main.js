@@ -11,17 +11,28 @@ require('mocha');
 
 var should = chai.should();
 
+var isWindows = process.platform === 'win32';
+
 var FILE0_CONTENTS = 'function test1() { var asdf = 3; }',
     FILE0_UGLIFIED = 'function test1(){}',
-    FILE0_UGLIFIED_WITH_SM = 'function test1(){}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map',
-    FILE0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
+    FILE0_UGLIFIED_WITH_SM = 'function test1(){}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map';
 
 var FILE1_CONTENTS = 'function test2() { var qwerty = \'keyboard\'; return qwerty; }';
 
 var FILE0_1_UGLIFIED = 'function test1(){}function test2(){var t="keyboard";return t}',
     FILE0_1_UGLIFIED_WITH_SM = 'function test1(){}function test2(){var t=\"keyboard\";return t}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map',
-    FILE0_1_UNMANGLED = 'function test1(){}function test2(){var qwerty=\"keyboard\";return qwerty}',
-    FILE0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
+    FILE0_1_UNMANGLED = 'function test1(){}function test2(){var qwerty=\"keyboard\";return qwerty}';
+
+var FILE0_SOURCE_MAP,
+    FILE0_1_SOURCE_MAP;
+
+if (isWindows) {
+  FILE0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
+  FILE0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
+} else {
+  FILE0_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
+  FILE0_1_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js","test/file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
+}
 
 function testFiles(stream, contents, expectedContents, expectedPaths) {
   it('should uglify one or several files', function(done) {
