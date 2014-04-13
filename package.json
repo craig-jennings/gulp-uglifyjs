@@ -5,6 +5,7 @@
   "author": "Craig Jennings <craig.jennings@gmail.com>",
   "dependencies": {
     "gulp-util": "^2.2.14",
+    "lodash": "~2.4.1",
     "path": "^0.4.9",
     "through": "^2.3.4",
     "uglify-js": "^2.4.13"

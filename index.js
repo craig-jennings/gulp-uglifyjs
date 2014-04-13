@@ -1,7 +1,8 @@
 var gutil = require('gulp-util'),
+    _ = require('lodash'),
     path = require('path'),
     through = require('through'),
-    uglify = require('uglify-js');
+    UglifyJS = require('uglify-js');
 
 var File = gutil.File,
     PluginError = gutil.PluginError;
@@ -9,11 +10,9 @@ var File = gutil.File,
 module.exports = function(filename, options) {
   'use strict';
 
-  var basePath = '.',
-      files = [],
-      firstFile = null;
-
-  options = options || {};
+  var baseFile = null,
+      basePath = '.',
+      toplevel = null;
 
   if (typeof filename === 'object') {
     // options given, but no filename
@@ -21,6 +20,16 @@ module.exports = function(filename, options) {
     filename = null;
   }
 
+  // Assign default values to options
+  options = _.extend({
+    compress: {
+      warnings: false
+    },
+    mangle: {},
+    output: {},
+  }, options);
+
+  // Needed to get the relative paths correct in the source map
   if (options.basePath) {
     basePath = process.cwd() + path.sep + options.basePath;
   }
@@ -36,12 +45,12 @@ module.exports = function(filename, options) {
       );
     }
 
-    if (!firstFile) {
-      firstFile = file;
+    if (!baseFile) {
+      baseFile = file;
 
       // Set the filename if one wasn't given
       if (!filename) {
-        filename = firstFile.relative;
+        filename = baseFile.relative;
       }
 
       // Set the outSourceMap filename if one was requested
@@ -50,35 +59,59 @@ module.exports = function(filename, options) {
       }
     }
 
-    files.push(path.relative(basePath, file.path));
+    toplevel = UglifyJS.parse(file.contents.toString(), {
+      filename: path.relative(basePath, file.path),
+      toplevel: toplevel
+    });
   }
 
   function minify() {
-    /* jshint validthis: true */
-    process.chdir(basePath);
+    /* jshint validthis: true, camelcase: false */
+    toplevel.figure_out_scope();
 
-    var uglified = uglify.minify(files, options);
+    if (options.compress !== false) {
+      var compressor = UglifyJS.Compressor(options.compress);
+      toplevel = toplevel.transform(compressor);
+
+      toplevel.figure_out_scope();
+    }
+
+    if (options.mangle !== false) {
+      toplevel.mangle_names();
+    }
+
+    if (options.outSourceMap) {
+      options.output.source_map = options.output.source_map || { file: options.outSourceMap };
+
+      var map = UglifyJS.SourceMap(options.output.source_map);
+      options.output.source_map = map;
+    }
+
+    // Output the minified code
+    var stream = UglifyJS.OutputStream(options.output);
+    toplevel.print(stream);
+    var min = stream.get();
 
     if (options.outSourceMap) {
       // Manually add source map comment to uglified code
-      uglified.code += '\r\n//# sourceMappingURL=' + options.outSourceMap;
+      min += '\r\n//# sourceMappingURL=' + options.outSourceMap;
     }
 
     var compressedFile = new File({
-      cwd: firstFile.cwd,
-      base: firstFile.base,
-      path: path.join(firstFile.base, filename),
-      contents: new Buffer(uglified.code)
+      cwd: baseFile.cwd,
+      base: baseFile.base,
+      path: path.join(baseFile.base, filename),
+      contents: new Buffer(min)
     });
 
     this.push(compressedFile);
 
     if (options.outSourceMap) {
       var sourceMap = new File({
-        cwd: firstFile.cwd,
-        base: firstFile.base,
-        path: path.join(firstFile.base, options.outSourceMap),
-        contents: new Buffer(uglified.map)
+        cwd: baseFile.cwd,
+        base: baseFile.base,
+        path: path.join(baseFile.base, options.outSourceMap),
+        contents: new Buffer(options.output.source_map.toString())
       });
 
       this.push(sourceMap);

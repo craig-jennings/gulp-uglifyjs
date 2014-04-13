@@ -13,25 +13,27 @@ var should = chai.should();
 
 var isWindows = process.platform === 'win32';
 
-var FILE0_CONTENTS = 'function test1() { var asdf = 3; }',
-    FILE0_UGLIFIED = 'function test1(){}',
-    FILE0_UGLIFIED_WITH_SM = 'function test1(){}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map';
+var FILE_0_CONTENTS = 'function test1() { var asdf = 3; }',
+    FILE_0_UGLIFIED = 'function test1(){}',
+    FILE_0_UNCOMPRESSED = 'function test1(){var a=3}',
+    FILE_0_UGLIFIED_WITH_SM = 'function test1(){}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map';
 
-var FILE1_CONTENTS = 'function test2() { var qwerty = \'keyboard\'; return qwerty; }';
+var FILE_1_CONTENTS = 'function test2() { var qwerty = \'keyboard\'; return qwerty; }';
 
-var FILE0_1_UGLIFIED = 'function test1(){}function test2(){var t="keyboard";return t}',
-    FILE0_1_UGLIFIED_WITH_SM = 'function test1(){}function test2(){var t=\"keyboard\";return t}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map',
-    FILE0_1_UNMANGLED = 'function test1(){}function test2(){var qwerty=\"keyboard\";return qwerty}';
+var FILE_0_1_UGLIFIED = 'function test1(){}function test2(){var a="keyboard";return a}',
+    FILE_0_1_UGLIFIED_WITH_SM = 'function test1(){}function test2(){var a=\"keyboard\";return a}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map',
+    FILE_0_1_UNCOMPRESSED = 'function test1(){var a=3}function test2(){var a=\"keyboard\";return a}',
+    FILE_0_1_UNMANGLED = 'function test1(){}function test2(){var qwerty=\"keyboard\";return qwerty}';
 
-var FILE0_SOURCE_MAP,
-    FILE0_1_SOURCE_MAP;
+var FILE_0_SOURCE_MAP,
+    FILE_0_1_SOURCE_MAP;
 
 if (isWindows) {
-  FILE0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
-  FILE0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
+  FILE_0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
+  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
 } else {
-  FILE0_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
-  FILE0_1_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js","test/file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
+  FILE_0_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
+  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js","test/file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
 }
 
 function testFiles(stream, contents, expectedContents, expectedPaths) {
@@ -73,8 +75,8 @@ function testFiles(stream, contents, expectedContents, expectedPaths) {
 
 describe('gulp-uglifyjs', function() {
   before(function() {
-    fs.writeFileSync('test/file0.js', [FILE0_CONTENTS]);
-    fs.writeFileSync('test/file1.js', [FILE1_CONTENTS]);
+    fs.writeFileSync('test/file0.js', [FILE_0_CONTENTS]);
+    fs.writeFileSync('test/file1.js', [FILE_1_CONTENTS]);
   });
 
   after(function() {
@@ -83,38 +85,32 @@ describe('gulp-uglifyjs', function() {
   });
 
   describe('uglify()', function() {
-    testFiles(uglify(), [FILE0_CONTENTS], [FILE0_UGLIFIED], ['test/file0.js']);
-    testFiles(uglify(), [FILE0_CONTENTS, FILE1_CONTENTS], [FILE0_1_UGLIFIED], ['test/file0.js']);
+    testFiles(uglify(), [FILE_0_CONTENTS], [FILE_0_UGLIFIED], ['test/file0.js']);
+    testFiles(uglify(), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UGLIFIED], ['test/file0.js']);
   });
 
   describe('uglify(filename)', function() {
-    testFiles(uglify('test.js'), [FILE0_CONTENTS], [FILE0_UGLIFIED], ['test.js']);
-    testFiles(uglify('test.js'), [FILE0_CONTENTS, FILE1_CONTENTS], [FILE0_1_UGLIFIED], ['test.js']);
-  });
-
-  describe('uglify(options)', function() {
-    testFiles(uglify({ mangle: false }), [FILE0_CONTENTS], [FILE0_UGLIFIED], ['test/file0.js']);
-    testFiles(uglify({ mangle: false }), [FILE0_CONTENTS, FILE1_CONTENTS], [FILE0_1_UNMANGLED], ['test/file0.js']);
+    testFiles(uglify('test.js'), [FILE_0_CONTENTS], [FILE_0_UGLIFIED], ['test.js']);
+    testFiles(uglify('test.js'), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UGLIFIED], ['test.js']);
   });
 
   describe('uglify(filename, options)', function() {
-    testFiles(uglify('test.js', { mangle: false }), [FILE0_CONTENTS], [FILE0_UGLIFIED], ['test.js']);
-    testFiles(uglify('test.js', { mangle: false }), [FILE0_CONTENTS, FILE1_CONTENTS], [FILE0_1_UNMANGLED], ['test.js']);
+    testFiles(uglify('test.js', { mangle: false }), [FILE_0_CONTENTS], [FILE_0_UGLIFIED], ['test.js']);
+    testFiles(uglify('test.js', { mangle: false }), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UNMANGLED], ['test.js']);
   });
 
   describe('uglify(options) with sourcemap', function() {
-    testFiles(
-      uglify({ outSourceMap: true }),
-      [FILE0_CONTENTS],
-      [FILE0_UGLIFIED_WITH_SM, FILE0_SOURCE_MAP],
-      ['test/file0.js', 'test/file0.js.map']
-    );
+    testFiles(uglify({ outSourceMap: true }), [FILE_0_CONTENTS], [FILE_0_UGLIFIED_WITH_SM, FILE_0_SOURCE_MAP], ['test/file0.js', 'test/file0.js.map']);
+    testFiles(uglify({ outSourceMap: true }), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UGLIFIED_WITH_SM, FILE_0_1_SOURCE_MAP], ['test/file0.js', 'test/file0.js.map']);
+  });
 
-    testFiles(
-      uglify({ outSourceMap: true }),
-      [FILE0_CONTENTS, FILE1_CONTENTS],
-      [FILE0_1_UGLIFIED_WITH_SM, FILE0_1_SOURCE_MAP],
-      ['test/file0.js', 'test/file0.js.map']
-    );
+  describe('uglify(options) - no compress', function() {
+    testFiles(uglify({ compress: false }), [FILE_0_CONTENTS], [FILE_0_UNCOMPRESSED], ['test/file0.js', 'test/file0.js.map']);
+    testFiles(uglify({ compress: false }), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UNCOMPRESSED], ['test/file0.js']);
+  });
+
+  describe('uglify(options) - no mangle', function() {
+    testFiles(uglify({ mangle: false }), [FILE_0_CONTENTS], [FILE_0_UGLIFIED], ['test/file0.js']);
+    testFiles(uglify({ mangle: false }), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UNMANGLED], ['test/file0.js']);
   });
 });
