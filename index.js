@@ -76,6 +76,13 @@ module.exports = function(filename, options) {
       toplevel.figure_out_scope();
     }
 
+    if (options.enclose) {
+      if (!Array.isArray(options.enclose)){
+        options.enclose = [options.enclose.toString()];
+      }
+      toplevel = toplevel.wrap_enclose(options.enclose);
+    }
+
     if (options.mangle !== false) {
       toplevel.mangle_names();
     }
