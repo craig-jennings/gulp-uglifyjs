@@ -67,6 +67,22 @@ module.exports = function(filename, options) {
 
   function minify() {
     /* jshint validthis: true, camelcase: false */
+
+    if (options.wrap) {
+        toplevel = toplevel.wrap_commonjs(options.wrap, options.export_all);
+    }
+
+    if (options.enclose) {
+        var arg_parameter_list = options.enclose;
+        if (arg_parameter_list === true) {
+            arg_parameter_list = [];
+        }
+        else if (!(arg_parameter_list instanceof Array)) {
+            arg_parameter_list = [arg_parameter_list];
+        }
+        toplevel = toplevel.wrap_enclose(arg_parameter_list);
+    }
+
     toplevel.figure_out_scope();
 
     if (options.compress !== false) {
