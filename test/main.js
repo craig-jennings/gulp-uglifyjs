@@ -16,6 +16,11 @@ var isWindows = process.platform === 'win32';
 var FILE_0_CONTENTS = 'function test1() { var asdf = 3; }',
     FILE_0_UGLIFIED = 'function test1(){}',
     FILE_0_UNCOMPRESSED = 'function test1(){var a=3}',
+    FILE_0_ENCLOSED = '(function(){function a(){var a=3}})();',
+    FILE_0_ENCLOSED_W_ARGS = '(function(a){function b(){var a=3}})(test);',
+    FILE_0_ENCLOSED_W_MULTIPLE_ARGS = '(function(a,b){function a(){var a=3}})(test1,test2);',
+    FILE_0_WRAPPED = '(function(a,b){b[\"test\"]=a;function c(){var a=3}})({},function(){return this}());',
+    FILE_0_WRAPPED_W_EXPORT = '(function(a,b){b[\"test\"]=a;function c(){var a=3}a[\"test1\"]=c})({},function(){return this}());',
     FILE_0_UGLIFIED_WITH_SM = 'function test1(){}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map';
 
 var FILE_1_CONTENTS = 'function test2() { var qwerty = \'keyboard\'; return qwerty; }';
@@ -118,5 +123,16 @@ describe('gulp-uglifyjs', function() {
   describe('uglify(options) - no mangle', function() {
     testFiles(uglify({ mangle: false }), [FILE_0_CONTENTS], [FILE_0_UGLIFIED], ['test/file0.js']);
     testFiles(uglify({ mangle: false }), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UNMANGLED], ['test/file0.js']);
+  });
+
+  describe('uglify(options) - enclose', function() {
+    testFiles(uglify({ enclose: true, compress: false }), [FILE_0_CONTENTS], [FILE_0_ENCLOSED], ['test/file0.js']);
+    testFiles(uglify({ enclose: { test: 'test' }, compress: false }), [FILE_0_CONTENTS], [FILE_0_ENCLOSED_W_ARGS], ['test/file0.js']);
+    testFiles(uglify({ enclose: { test1: 'test1', test2: 'test2' }, compress: false }), [FILE_0_CONTENTS], [FILE_0_ENCLOSED_W_MULTIPLE_ARGS], ['test/file0.js']);
+  });
+
+  describe('uglify(options) - wrap', function() {
+    testFiles(uglify({ wrap: 'test', compress: false }), [FILE_0_CONTENTS], [FILE_0_WRAPPED], ['test/file0.js']);
+    testFiles(uglify({ wrap: 'test', compress: false, exportAll: true }), [FILE_0_CONTENTS], [FILE_0_WRAPPED_W_EXPORT], ['test/file0.js']);
   });
 });

@@ -59,13 +59,31 @@ it to a file with the same name as the first file found.
 
   - `output`
 
-    (default `null`) Pass an object if you wish to specify additional [output options](http://lisperator.net/uglifyjs/codegen).
+    (default `null`) Pass an Object if you wish to specify additional [output options](http://lisperator.net/uglifyjs/codegen).
     The defaults are optimized for best compression.
 
   - `compress`
 
-    (default `{}`) Pass an object to specify custom [compressor options](http://lisperator.net/uglifyjs/compress).
+    (default `{}`) Pass an Object to specify custom [compressor options](http://lisperator.net/uglifyjs/compress).
     Pass `false` to skip compression completely.
+
+  - `enclose`
+
+    (default `undefined`) Pass an Object to wrap all of the code in a closure
+    with a configurable arguments/parameters list. Each key-value pair in the
+    enclose object is effectively an argument-parameter pair.
+
+  - 'wrap'
+
+    (default `undefined`) Pass a String to wrap all of the code in a closure.
+    This is an easy way to make sure nothing is leaking. Variables that need to
+    be public `exports` and `global` are made available. The value of wrap is
+    the global variable exports will be available as.
+
+  - `exportAll`
+
+    (default `false`) Set to `true` to ake all global functions and variables
+    available via the `export` variable. Only available when using `wrap`.
 
 ### Examples
 
