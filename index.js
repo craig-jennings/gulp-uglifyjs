@@ -67,6 +67,11 @@ module.exports = function(filename, options) {
 
   function minify() {
     /* jshint validthis: true, camelcase: false */
+    if(!toplevel) {
+      gutil.log('gulp-uglifyjs - No files given; aborting minification');
+      return;
+    }
+
     toplevel.figure_out_scope();
 
     if (options.compress !== false) {

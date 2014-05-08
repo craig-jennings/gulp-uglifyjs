@@ -87,6 +87,12 @@ describe('gulp-uglifyjs', function() {
   describe('uglify()', function() {
     testFiles(uglify(), [FILE_0_CONTENTS], [FILE_0_UGLIFIED], ['test/file0.js']);
     testFiles(uglify(), [FILE_0_CONTENTS, FILE_1_CONTENTS], [FILE_0_1_UGLIFIED], ['test/file0.js']);
+
+    it('should not fail when no file is given', function() {
+      var stream = uglify();
+      stream.write(new File({ contents: null }));
+      stream.end();
+    });
   });
 
   describe('uglify(filename)', function() {
