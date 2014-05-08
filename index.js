@@ -72,6 +72,18 @@ module.exports = function(filename, options) {
       return;
     }
 
+    if (options.wrap) {
+      toplevel = toplevel.wrap_commonjs(options.wrap, options.exportAll);
+    }
+
+    if (options.enclose) {
+      var argParameterList = _.map(options.enclose, function(val, key) {
+        return key + ':' + val;
+      });
+
+      toplevel = toplevel.wrap_enclose(argParameterList);
+    }
+
     toplevel.figure_out_scope();
 
     if (options.compress !== false) {
