@@ -73,7 +73,7 @@ it to a file with the same name as the first file found.
     with a configurable arguments/parameters list. Each key-value pair in the
     enclose object is effectively an argument-parameter pair.
 
-  - 'wrap'
+  - `wrap`
 
     (default `undefined`) Pass a String to wrap all of the code in a closure.
     This is an easy way to make sure nothing is leaking. Variables that need to
