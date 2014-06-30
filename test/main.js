@@ -31,13 +31,16 @@ var FILE_0_1_UGLIFIED = 'function test1(){}function test2(){var a="keyboard";ret
     FILE_0_1_UNMANGLED = 'function test1(){}function test2(){var qwerty=\"keyboard\";return qwerty}';
 
 var FILE_0_SOURCE_MAP,
+    FILE_0_SOURCE_MAP_INCLUDE_SOURCES,
     FILE_0_1_SOURCE_MAP;
 
 if (isWindows) {
   FILE_0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
+  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourcesContent":["function test1() { var asdf = 3; }"]}';
   FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
 } else {
   FILE_0_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
+  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourcesContent":["function test1() { var asdf = 3; }"]}';
   FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js","test/file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
 }
 
@@ -134,5 +137,9 @@ describe('gulp-uglifyjs', function() {
   describe('uglify(options) - wrap', function() {
     testFiles(uglify({ wrap: 'test', compress: false }), [FILE_0_CONTENTS], [FILE_0_WRAPPED], ['test/file0.js']);
     testFiles(uglify({ wrap: 'test', compress: false, exportAll: true }), [FILE_0_CONTENTS], [FILE_0_WRAPPED_W_EXPORT], ['test/file0.js']);
+  });
+
+  describe('uglify(options) - sourceMapIncludeSources', function() {
+    testFiles(uglify({ outSourceMap: true, sourceMapIncludeSources: true }), [FILE_0_CONTENTS], [FILE_0_UGLIFIED_WITH_SM, FILE_0_SOURCE_MAP_INCLUDE_SOURCES], ['test/file0.js', 'test/file0.js.map']);
   });
 });
