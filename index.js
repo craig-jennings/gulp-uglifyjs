@@ -12,7 +12,8 @@ module.exports = function(filename, options) {
 
   var baseFile = null,
       basePath = '.',
-      toplevel = null;
+      toplevel = null,
+      sourcesContent = {};
 
   if (typeof filename === 'object') {
     // options given, but no filename
@@ -59,7 +60,11 @@ module.exports = function(filename, options) {
       }
     }
 
-    toplevel = UglifyJS.parse(file.contents.toString(), {
+    var code = file.contents.toString();
+
+    sourcesContent[file.path] = code;
+
+    toplevel = UglifyJS.parse(code, {
       filename: path.relative(basePath, file.path),
       toplevel: toplevel
     });
@@ -102,6 +107,14 @@ module.exports = function(filename, options) {
 
       var map = UglifyJS.SourceMap(options.output.source_map);
       options.output.source_map = map;
+
+      if (options.sourceMapIncludeSources) {
+        for (var file in sourcesContent) {
+          if (sourcesContent.hasOwnProperty(file)) {
+            options.output.source_map.get().setSourceContent(file, sourcesContent[file]);
+          }
+        }
+      }
     }
 
     // Output the minified code
