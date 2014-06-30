@@ -1,5 +1,9 @@
 # gulp-uglifyjs changelog
 
+## 0.4.0
+
+- Added `sourceMapIncludeSources` option [da7684e](https://github.com/craigjennings11/gulp-uglifyjs/commit/da7684ea23475f5fc78f142ddb1556d9795309ba)
+
 ## 0.3.0
 
 - Added `wrap` and `enclose` options [4ca8c29](https://github.com/craigjennings11/gulp-uglifyjs/commit/4ca8c2979fc08d85649056535d0dcb00eff9bb7a)
