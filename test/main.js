@@ -142,4 +142,21 @@ describe('gulp-uglifyjs', function() {
   describe('uglify(options) - sourceMapIncludeSources', function() {
     testFiles(uglify({ outSourceMap: true, sourceMapIncludeSources: true }), [FILE_0_CONTENTS], [FILE_0_UGLIFIED_WITH_SM, FILE_0_SOURCE_MAP_INCLUDE_SOURCES], ['test/file0.js', 'test/file0.js.map']);
   });
+
+  describe('uglify() - error in code', function() {
+    it('should throw an error on bad syntax', function() {
+      var stream = uglify();
+
+      try {
+        stream.write(new File({
+          cwd: '.',
+          base: '.',
+          path: 'test/file2.js',
+          contents: new Buffer('function test() { badSyntax((); }')
+        }));
+      } catch (err) {
+        err.message.should.equal('Aborting due to previous errors');
+      }
+    });
+  });
 });

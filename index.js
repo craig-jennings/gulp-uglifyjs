@@ -40,10 +40,7 @@ module.exports = function(filename, options) {
     if (file.isNull()) return;
 
     if (file.isStream()) {
-      return this.emit(
-        'error',
-        new PluginError('gulp-uglifyjs',  'Streaming not supported')
-      );
+      return this.emit('error', new PluginError('gulp-uglifyjs',  'Streaming not supported'));
     }
 
     if (!baseFile) {
@@ -64,10 +61,15 @@ module.exports = function(filename, options) {
 
     sourcesContent[file.path] = code;
 
-    toplevel = UglifyJS.parse(code, {
-      filename: path.relative(basePath, file.path),
-      toplevel: toplevel
-    });
+    try {
+      toplevel = UglifyJS.parse(code, {
+        filename: path.relative(basePath, file.path),
+        toplevel: toplevel
+      });
+    } catch(e) {
+      gutil.log('gulp-uglifyjs - UglifyJS threw an error:', '"' + e.message + '"', 'from', '"' + file.path + '"');
+      return this.emit('error', new PluginError('gulp-uglifyjs',  'Aborting due to previous errors'));
+    }
   }
 
   function minify() {
