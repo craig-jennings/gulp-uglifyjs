@@ -1,5 +1,9 @@
 # gulp-uglifyjs changelog
 
+## 0.4.1
+
+- Added better reporting when UglifyJS throws an error
+
 ## 0.4.0
 
 - Added `sourceMapIncludeSources` option [da7684e](https://github.com/craigjennings11/gulp-uglifyjs/commit/da7684ea23475f5fc78f142ddb1556d9795309ba)
