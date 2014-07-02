@@ -1,5 +1,9 @@
 # gulp-uglifyjs changelog
 
+## 0.4.2
+
+- Adding more details to error reporting
+
 ## 0.4.1
 
 - Added better reporting when UglifyJS throws an error
