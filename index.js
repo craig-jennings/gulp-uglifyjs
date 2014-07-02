@@ -67,7 +67,10 @@ module.exports = function(filename, options) {
         toplevel: toplevel
       });
     } catch(e) {
-      gutil.log('gulp-uglifyjs - UglifyJS threw an error:', '"' + e.message + '"', 'from', '"' + file.path + '"');
+      gutil.log('gulp-uglifyjs - UglifyJS threw an error');
+      gutil.log(gutil.colors.red('file: ') + file.path + ':' + e.line + ',' + e.col);
+      gutil.log(gutil.colors.red('error: ') + e.message);
+
       return this.emit('error', new PluginError('gulp-uglifyjs',  'Aborting due to previous errors'));
     }
   }
