@@ -108,7 +108,10 @@ module.exports = function(filename, options) {
     }
 
     if (options.outSourceMap) {
-      options.output.source_map = options.output.source_map || { file: options.outSourceMap };
+      options.output.source_map = options.output.source_map || {
+        file: options.outSourceMap,
+        root: baseFile.cwd,
+      };
 
       var map = UglifyJS.SourceMap(options.output.source_map);
       options.output.source_map = map;
