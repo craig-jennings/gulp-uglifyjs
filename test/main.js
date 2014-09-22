@@ -35,13 +35,13 @@ var FILE_0_SOURCE_MAP,
     FILE_0_1_SOURCE_MAP;
 
 if (isWindows) {
-  FILE_0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
-  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourcesContent":["function test1() { var asdf = 3; }"]}';
-  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
+  FILE_0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":"."}';
+  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":".","sourcesContent":["function test1() { var asdf = 3; }"]}';
+  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA","sourceRoot":"."}';
 } else {
-  FILE_0_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA"}';
-  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourcesContent":["function test1() { var asdf = 3; }"]}';
-  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js","test/file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA"}';
+  FILE_0_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":"."}';
+  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":".","sourcesContent":["function test1() { var asdf = 3; }"]}';
+  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js","test/file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA","sourceRoot":"."}';
 }
 
 function testFiles(stream, contents, expectedContents, expectedPaths) {
