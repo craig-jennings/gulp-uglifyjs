@@ -1,5 +1,9 @@
 # gulp-uglifyjs changelog
 
+## 0.4.3
+
+- Fixing problem where source wouldn't load in browser [#11](https://github.com/craigjennings11/gulp-uglifyjs/issues/11)
+
 ## 0.4.2
 
 - Adding more details to error reporting
