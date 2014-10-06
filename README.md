@@ -15,6 +15,13 @@ and then `uglify()` would result in a source map for the already concatenated
 file which has the possibility of being quite large, making it hard to find the
 code you are wanting to debug.
 
+NOTE: This plugin has been blacklisted as it relies on Uglify to concat the files
+instead of using `gulp.concat` which breaks the "It should do one thing" paradigm.
+When I created this plugin, there was no way to get source maps to work with gulp,
+however now there is a "gulp-sourcemaps" plugin that achieves the same goal.
+gulp-uglifyjs still works great and gives very granular control over the Uglify
+execution, I'm just giving you a heads up that other options exist now.
+
 ## Usage
 
 ```javascript
@@ -84,6 +91,12 @@ it to a file with the same name as the first file found.
 
     (default `false`) Set to `true` to ake all global functions and variables
     available via the `export` variable. Only available when using `wrap`.
+
+Note about `sourceRoot`: Since this plugin leverages `UglifyJS.SourceMap()` to create
+the source map, you need to set `output.source_map.root` instead of just `sourceRoot`.
+See the "Source Map" section [here](http://lisperator.net/uglifyjs/codegen) for more
+information and [Issue 8](https://github.com/craigjennings11/gulp-uglifyjs/issues/8#issuecomment-44226647)
+for an example.
 
 ### Examples
 
