@@ -1,7 +1,7 @@
 {
   "name": "gulp-uglifyjs",
   "description": "Minify multiple files with UglifyJS.",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "author": "Craig Jennings <craig.jennings@gmail.com>",
   "dependencies": {
     "gulp-util": "^2.2.14",
