@@ -11,7 +11,12 @@ require('mocha');
 
 var should = chai.should();
 
+var seperator = '/';
+
 var isWindows = process.platform === 'win32';
+if (isWindows) {
+  seperator = '\\\\';
+}
 
 var FILE_0_CONTENTS = 'function test1() { var asdf = 3; }',
     FILE_0_UGLIFIED = 'function test1(){}',
@@ -30,19 +35,9 @@ var FILE_0_1_UGLIFIED = 'function test1(){}function test2(){var a="keyboard";ret
     FILE_0_1_UNCOMPRESSED = 'function test1(){var a=3}function test2(){var a=\"keyboard\";return a}',
     FILE_0_1_UNMANGLED = 'function test1(){}function test2(){var qwerty=\"keyboard\";return qwerty}';
 
-var FILE_0_SOURCE_MAP,
-    FILE_0_SOURCE_MAP_INCLUDE_SOURCES,
-    FILE_0_1_SOURCE_MAP;
-
-if (isWindows) {
-  FILE_0_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":"."}';
-  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":".","sourcesContent":["function test1() { var asdf = 3; }"]}';
-  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test\\\\file0.js.map","sources":["test\\\\file0.js","test\\\\file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA","sourceRoot":"."}';
-} else {
-  FILE_0_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":"."}';
-  FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":".","sourcesContent":["function test1() { var asdf = 3; }"]}';
-  FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test/file0.js.map","sources":["test/file0.js","test/file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA","sourceRoot":"."}';
-}
+var FILE_0_SOURCE_MAP = '{"version":3,"file":"test' + seperator + 'file0.js","sources":["test' + seperator + 'file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":"."}',
+    FILE_0_SOURCE_MAP_INCLUDE_SOURCES = '{"version":3,"file":"test' + seperator + 'file0.js","sources":["test' + seperator + 'file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":".","sourcesContent":["function test1() { var asdf = 3; }"]}',
+    FILE_0_1_SOURCE_MAP = '{"version":3,"file":"test' + seperator + 'file0.js","sources":["test' + seperator + 'file0.js","test' + seperator + 'file1.js"],"names":["test1","test2","qwerty"],"mappings":"AAAA,QAASA,UCAT,QAASC,SAAU,GAAIC,GAAS,UAAY,OAAOA","sourceRoot":"."}';
 
 function testFiles(stream, contents, expectedContents, expectedPaths) {
   it('should uglify one or several files', function(done) {
