@@ -108,14 +108,16 @@ module.exports = function(filename, options) {
       toplevel.mangle_names();
     }
 
+    // Setup source map if one was requested
     if (options.outSourceMap) {
       options.output.source_map = options.output.source_map || {
         file: filename,
-        root: baseFile.cwd,
+        root: options.sourceRoot || baseFile.cwd,
       };
+
       if (options.inSourceMap) {
         options.output.source_map.orig = fs.readFileSync(options.inSourceMap).toString();
-      } 
+      }
 
       var map = UglifyJS.SourceMap(options.output.source_map);
       options.output.source_map = map;
