@@ -66,7 +66,7 @@ it to a file with the same name as the first file found.
     can use the inSourceMap argument. This can only be used in conjunction with
     `outSourceMap`.
 
-  - sourceRoot
+  - `sourceRoot`
 
     Sets the root location for where the source files should be found
 
