@@ -60,6 +60,16 @@ it to a file with the same name as the first file found.
     of absolute paths (which you probably will if it is hosted on a server), set
     the `basePath` option to be the base of where the content is served.
 
+  - `inSourceMap`
+
+    If you're compressing compiled JavaScript and have a source map for it, you
+    can use the inSourceMap argument. This can only be used in conjunction with
+    `outSourceMap`.
+
+  - sourceRoot
+
+    Sets the root location for where the source files should be found
+
   - `mangle`
 
     (default `true`) Set to `false` to skip mangling names
@@ -91,12 +101,6 @@ it to a file with the same name as the first file found.
 
     (default `false`) Set to `true` to ake all global functions and variables
     available via the `export` variable. Only available when using `wrap`.
-
-Note about `sourceRoot`: Since this plugin leverages `UglifyJS.SourceMap()` to create
-the source map, you need to set `output.source_map.root` instead of just `sourceRoot`.
-See the "Source Map" section [here](http://lisperator.net/uglifyjs/codegen) for more
-information and [Issue 8](https://github.com/craigjennings11/gulp-uglifyjs/issues/8#issuecomment-44226647)
-for an example.
 
 ### Examples
 
