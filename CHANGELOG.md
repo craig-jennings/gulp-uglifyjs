@@ -1,5 +1,10 @@
 # gulp-uglifyjs changelog
 
+## 0.5.0
+
+- Adding support for inSourceMap option [12460aa](https://github.com/craigjennings11/gulp-uglifyjs/commit/12460aa1bdcb373d0055ab323077bda5ebd76d35)
+- Adding support for sourceRoot option to mirror Uglify.minify() API more closely
+
 ## 0.4.4
 
 - Using correct filename for source_map.file option by default [#15](https://github.com/craigjennings11/gulp-uglifyjs/issues/15)
