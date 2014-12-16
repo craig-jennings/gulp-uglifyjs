@@ -80,6 +80,7 @@ module.exports = function(filename, options) {
     /* jshint validthis: true, camelcase: false */
     if(!toplevel) {
       gutil.log('gulp-uglifyjs - No files given; aborting minification');
+      this.emit('end');
       return;
     }
 
