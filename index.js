@@ -105,7 +105,13 @@ module.exports = function(filename, options) {
     }
 
     if (options.mangle !== false) {
-      toplevel.mangle_names();
+      var reservedWords = [];    
+      if (options.reserved && options.reserved instanceof Array) {
+        reservedWords = options.reserved;
+      }
+      var MANGLE = MANGLE || {};
+      MANGLE.except = reservedWords;
+      toplevel.mangle_names(MANGLE);
     }
 
     // Setup source map if one was requested
