@@ -105,7 +105,8 @@ module.exports = function(filename, options) {
     }
 
     if (options.mangle !== false) {
-      toplevel.mangle_names();
+      toplevel.compute_char_frequency();
+      toplevel.mangle_names(options.mangle);
     }
 
     // Setup source map if one was requested
