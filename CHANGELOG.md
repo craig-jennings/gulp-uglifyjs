@@ -1,5 +1,8 @@
 # gulp-uglifyjs changelog
 
+## 0.6.0
+- Add support for mangle options [f35998c](https://github.com/craigjennings11/gulp-uglifyjs/commit/f35998c7a73dcd2ea24661dc801e34b6bfbe092c)
+
 ## 0.5.0
 
 - Adding support for inSourceMap option [12460aa](https://github.com/craigjennings11/gulp-uglifyjs/commit/12460aa1bdcb373d0055ab323077bda5ebd76d35)
