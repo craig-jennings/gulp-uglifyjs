@@ -72,7 +72,7 @@ it to a file with the same name as the first file found.
 
   - `mangle`
 
-    (default `true`) Set to `false` to skip mangling names
+    (default `{}`) Set to `false` to skip mangling names. See [options](https://github.com/mishoo/UglifyJS2/blob/e37b67d013c4537a36bb3c24f4f99e72efbf6d4b/lib/scope.js#L328) for possible key/value pairs.
 
   - `output`
 
