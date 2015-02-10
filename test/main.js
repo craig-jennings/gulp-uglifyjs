@@ -20,19 +20,19 @@ if (isWindows) {
 
 var FILE_0_CONTENTS = 'function test1() { var asdf = 3; }',
     FILE_0_UGLIFIED = 'function test1(){}',
-    FILE_0_UNCOMPRESSED = 'function test1(){var a=3}',
-    FILE_0_ENCLOSED = '(function(){function a(){var a=3}})();',
-    FILE_0_ENCLOSED_W_ARGS = '(function(a){function b(){var a=3}})(test);',
-    FILE_0_ENCLOSED_W_MULTIPLE_ARGS = '(function(a,b){function a(){var a=3}})(test1,test2);',
-    FILE_0_WRAPPED = '(function(a,b){b[\"test\"]=a;function c(){var a=3}})({},function(){return this}());',
-    FILE_0_WRAPPED_W_EXPORT = '(function(a,b){b[\"test\"]=a;function c(){var a=3}a[\"test1\"]=c})({},function(){return this}());',
+    FILE_0_UNCOMPRESSED = 'function test1(){var t=3}',
+    FILE_0_ENCLOSED = '(function(){function t(){var t=3}})();',
+    FILE_0_ENCLOSED_W_ARGS = '(function(t){function n(){var t=3}})(test);',
+    FILE_0_ENCLOSED_W_MULTIPLE_ARGS = '(function(t,n){function t(){var t=3}})(test1,test2);',
+    FILE_0_WRAPPED = '(function(t,n){n[\"test\"]=t;function u(){var t=3}})({},function(){return this}());',
+    FILE_0_WRAPPED_W_EXPORT = '(function(t,n){n[\"test\"]=t;function u(){var t=3}t[\"test1\"]=u})({},function(){return this}());',
     FILE_0_UGLIFIED_WITH_SM = 'function test1(){}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map';
 
 var FILE_1_CONTENTS = 'function test2() { var qwerty = \'keyboard\'; return qwerty; }';
 
-var FILE_0_1_UGLIFIED = 'function test1(){}function test2(){var a="keyboard";return a}',
-    FILE_0_1_UGLIFIED_WITH_SM = 'function test1(){}function test2(){var a=\"keyboard\";return a}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map',
-    FILE_0_1_UNCOMPRESSED = 'function test1(){var a=3}function test2(){var a=\"keyboard\";return a}',
+var FILE_0_1_UGLIFIED = 'function test1(){}function test2(){var t="keyboard";return t}',
+    FILE_0_1_UGLIFIED_WITH_SM = 'function test1(){}function test2(){var t=\"keyboard\";return t}\r\n//# sourceMappingURL=test' + path.sep + 'file0.js.map',
+    FILE_0_1_UNCOMPRESSED = 'function test1(){var t=3}function test2(){var t=\"keyboard\";return t}',
     FILE_0_1_UNMANGLED = 'function test1(){}function test2(){var qwerty=\"keyboard\";return qwerty}';
 
 var FILE_0_SOURCE_MAP = '{"version":3,"file":"test' + seperator + 'file0.js","sources":["test' + seperator + 'file0.js"],"names":["test1"],"mappings":"AAAA,QAASA","sourceRoot":"."}',
