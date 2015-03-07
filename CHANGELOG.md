@@ -1,5 +1,8 @@
 # gulp-uglifyjs changelog
 
+## 0.6.1
+- Don't break pipe when no files given [1791bbf](https://github.com/craigjennings11/gulp-uglifyjs/commit/1791bbf979754d60c26ce205c58c9bfe746eed3c)
+
 ## 0.6.0
 - Add support for mangle options [f35998c](https://github.com/craigjennings11/gulp-uglifyjs/commit/f35998c7a73dcd2ea24661dc801e34b6bfbe092c)
 
