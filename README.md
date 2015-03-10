@@ -99,7 +99,7 @@ it to a file with the same name as the first file found.
 
   - `exportAll`
 
-    (default `false`) Set to `true` to ake all global functions and variables
+    (default `false`) Set to `true` to make all global functions and variables
     available via the `export` variable. Only available when using `wrap`.
 
 ### Examples
