@@ -4,15 +4,13 @@
   "version": "0.6.1",
   "author": "Craig Jennings <craig.jennings@gmail.com>",
   "dependencies": {
-    "gulp-util": "^2.2.14",
-    "lodash": "~2.4.1",
-    "path": "^0.4.9",
+    "gulp-util": "^3.0.4",
     "through": "^2.3.4",
     "uglify-js": "^2.4.13"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
-    "mocha": "^1.18.2"
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4"
   },
   "keywords": [
     "gulp",

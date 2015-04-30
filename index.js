@@ -1,20 +1,19 @@
-var gutil = require('gulp-util'),
-    _ = require('lodash'),
-    path = require('path'),
-    through = require('through'),
-    UglifyJS = require('uglify-js'),
-    fs = require('fs');
+var fs = require('fs');
+var gutil = require('gulp-util');
+var path = require('path');
+var through = require('through');
+var UglifyJS = require('uglify-js');
 
-var File = gutil.File,
-    PluginError = gutil.PluginError;
+var File = gutil.File;
+var PluginError = gutil.PluginError;
 
 module.exports = function(filename, options) {
   'use strict';
 
-  var baseFile = null,
-      basePath = '.',
-      toplevel = null,
-      sourcesContent = {};
+  var baseFile = null;
+  var basePath = '.';
+  var sourcesContent = {};
+  var toplevel = null;
 
   if (typeof filename === 'object') {
     // options given, but no filename
@@ -23,13 +22,10 @@ module.exports = function(filename, options) {
   }
 
   // Assign default values to options
-  options = _.extend({
-    compress: {
-      warnings: false
-    },
-    mangle: {},
-    output: {},
-  }, options);
+  options = options || {};
+  if (options.compress !== false) options.compress = options.compress || { warnings: false };
+  if (options.mangle !== false) options.mangle = options.mangle || {};
+  options.output = options.output || {};
 
   // Needed to get the relative paths correct in the source map
   if (options.basePath) {
@@ -89,9 +85,13 @@ module.exports = function(filename, options) {
     }
 
     if (options.enclose) {
-      var argParameterList = _.map(options.enclose, function(val, key) {
-        return key + ':' + val;
-      });
+      var argParameterList = [];
+
+      if (options.enclose !== true) {
+        Object.keys(options.enclose).forEach(function(key) {
+          argParameterList.push(key + ':' + options.enclose[key]);
+        });
+      }
 
       toplevel = toplevel.wrap_enclose(argParameterList);
     }
