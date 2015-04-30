@@ -1,5 +1,10 @@
 # gulp-uglifyjs changelog
 
+## 0.6.2
+- Remove dependency on lodash, path
+- Update dependencies
+- Update deprecation notice
+
 ## 0.6.1
 - Don't break pipe when no files given [1791bbf](https://github.com/craigjennings11/gulp-uglifyjs/commit/1791bbf979754d60c26ce205c58c9bfe746eed3c)
 
