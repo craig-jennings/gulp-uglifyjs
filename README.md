@@ -1,12 +1,20 @@
 # gulp-uglifyjs [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
+__DEPRECATED__: This plugin has been blacklisted as it relies on Uglify to concat
+the files instead of using [gulp-concat][concat-link], which breaks the "It
+should do one thing" paradigm. When I created this plugin, there was no way to
+get source maps to work with gulp, however now there is a [gulp-sourcemaps][sourcemaps-link]
+plugin that achieves the same goal. gulp-uglifyjs still works great and gives
+very granular control over the Uglify execution, I'm just giving you a heads up
+that other options now exist.
+
 > Minify multiple JavaScript with UglifyJS2.
 
-This plugin is based off of [gulp-uglify](https://github.com/terinjokes/gulp-uglify)
-but allows you to directly use all of Uglify's options. The main difference
-between these two plugins is that passing in an array of files (or glob pattern
-that matches multiple files) will pass that array directly to Uglify. Uglify
-will handle both concatenating and minifying those files.
+This plugin is based off of [gulp-uglify][uglify-link] but allows you to
+directly use all of Uglify's options. The main difference between these two
+plugins is that passing in an array of files (or glob pattern that matches
+multiple files) will pass that array directly to Uglify. Uglify will handle both
+concatenating and minifying those files.
 
 Letting Uglify handle the concatenation and minification allows for the
 generated source map to be able to separate the files in the browser for easier
@@ -15,12 +23,9 @@ and then `uglify()` would result in a source map for the already concatenated
 file which has the possibility of being quite large, making it hard to find the
 code you are wanting to debug.
 
-NOTE: This plugin has been blacklisted as it relies on Uglify to concat the files
-instead of using `gulp.concat` which breaks the "It should do one thing" paradigm.
-When I created this plugin, there was no way to get source maps to work with gulp,
-however now there is a "gulp-sourcemaps" plugin that achieves the same goal.
-gulp-uglifyjs still works great and gives very granular control over the Uglify
-execution, I'm just giving you a heads up that other options exist now.
+[sourcemaps-link]: https://github.com/floridoo/gulp-sourcemaps
+[concat-link]: https://github.com/wearefractal/gulp-concat
+[uglify-link]: https://github.com/terinjokes/gulp-uglify
 
 ## Usage
 
