@@ -52,6 +52,11 @@ module.exports = function(filename, options) {
       if (options.outSourceMap === true) {
         options.outSourceMap = filename + '.map';
       }
+
+      // Set the inSourceMap filename if one was requested
+      if (options.inSourceMap === true) {
+        options.inSourceMap = filename + '.map';
+      }
     }
 
     var code = file.contents.toString();
