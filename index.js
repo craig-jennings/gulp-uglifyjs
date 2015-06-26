@@ -123,7 +123,7 @@ module.exports = function(filename, options) {
       };
 
       if (options.inSourceMap) {
-        options.output.source_map.orig = fs.readFileSync(options.inSourceMap).toString();
+        options.output.source_map.orig = fs.readFileSync(path.join(baseFile.base, options.inSourceMap)).toString();
       }
 
       var map = UglifyJS.SourceMap(options.output.source_map);
