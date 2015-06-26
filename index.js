@@ -52,6 +52,11 @@ module.exports = function(filename, options) {
       if (options.outSourceMap === true) {
         options.outSourceMap = filename + '.map';
       }
+
+      // Set the inSourceMap filename if one was requested
+      if (options.inSourceMap === true) {
+        options.inSourceMap = filename + '.map';
+      }
     }
 
     var code = file.contents.toString();
@@ -114,11 +119,11 @@ module.exports = function(filename, options) {
     if (options.outSourceMap) {
       options.output.source_map = options.output.source_map || {
         file: filename,
-        root: options.sourceRoot || baseFile.cwd,
+        root: options.sourceRoot || baseFile.base,
       };
 
       if (options.inSourceMap) {
-        options.output.source_map.orig = fs.readFileSync(options.inSourceMap).toString();
+        options.output.source_map.orig = fs.readFileSync(path.join(baseFile.base, options.inSourceMap)).toString();
       }
 
       var map = UglifyJS.SourceMap(options.output.source_map);
