@@ -119,7 +119,7 @@ module.exports = function(filename, options) {
     if (options.outSourceMap) {
       options.output.source_map = options.output.source_map || {
         file: filename,
-        root: options.sourceRoot || baseFile.cwd,
+        root: options.sourceRoot || baseFile.base,
       };
 
       if (options.inSourceMap) {
