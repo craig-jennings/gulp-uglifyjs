@@ -105,6 +105,13 @@ module.exports = function(filename, options) {
       toplevel.figure_out_scope();
     }
 
+    if (options.enclose) {
+      if (!Array.isArray(options.enclose)){
+        options.enclose = [options.enclose.toString()];
+      }
+      toplevel = toplevel.wrap_enclose(options.enclose);
+    }
+
     if (options.mangle !== false) {
       toplevel.compute_char_frequency();
       toplevel.mangle_names(options.mangle);
